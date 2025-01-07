@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-dev
+spec:
+  selector:
+    matchLabels:
+      app: python-dev
+  template:
+    metadata:
+      labels:
+        app: python-dev
+    spec:
+      containers:
+      - name: dev
+        image: localhost:5000/python-dev:latest  # Updated image name
+        imagePullPolicy: IfNotPresent           # Add this line
+        ports:
+        - containerPort: 22
+        volumeMounts:
+        - name: workspace
+          mountPath: /workspace
+      volumes:
+      - name: workspace
+        emptyDir: {}
